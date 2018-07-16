@@ -50,6 +50,14 @@
       <style>
         /* style input forms */
         input[type='text'] { font-size: 20px; font-family: Courier; color:black}
+
+        .bottom {
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+
       </style>
     </head>
     <body onload="loadFocus()">
@@ -162,10 +170,13 @@
             </fieldset>
           </font>
         </div>
+        <div class='bottom' align="center">
+          <audio autoplay loop controls>
+            <source src="wmraa.mp3" type="audio/mpeg">
+          </audio>
+        </div>
       </div>
-      <audio autoplay loop>
-        <source src="wmraa.mp3" type="audio/mpeg">
-      </audio>
+
       <script>
         // after an input revert focus to the other input
         document.getElementById("inYear1").onkeyup = function()
