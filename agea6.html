@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+  <html>
+    <title>What's My Racing Age Again?</title>
+    <head>
+      <script type="text/javascript">
+        function handleBirthYear()
+          {
+            // determine month.
+            const today = new Date();
+            const month = today.getMonth()+1;
+            // determine years.
+            const thisYear = today.getFullYear();
+            const nextYear = today.getFullYear()+1;
+            // determine cx years: calucation with cxYear4Char and label with cxYearLabel1 and cxYear2Char.
+            const cxYear4Char = (month > 2) ? nextYear : thisYear;
+            const cxYear2Char = parseInt(cxYear4Char)-2000;
+            const cxYearLabel1 = parseInt(cxYear4Char-1);
+            // determine other years: calculation with thisYear2Char and label with thisYear.
+            const thisYear2Char = parseInt(thisYear)-2000;
+            // create labels.
+            document.getElementById("cxYearLabel1").value = cxYearLabel1;
+            document.getElementById("cxYear2Char").value = cxYear2Char;
+            document.getElementById("thisYear").value = thisYear;
+            // determine input value 2Char.
+            const recYear1Tag = document.getElementById("inYear1");
+            const recYear1String = recYear1Tag.value;
+            const recYear1 = parseInt(recYear1String);
+            const recYear2Tag = document.getElementById("inYear2");
+            const recYear2String = recYear2Tag.value;
+            const recYear2 = parseInt(recYear2String);
+            const comboYear2Char = 10*parseInt(recYear1)+parseInt(recYear2);
+            // determine racing ages.
+            ( comboYear2Char > cxYear2Char ) ?
+              (document.getElementById("cAge").value = cxYear2Char+100-comboYear2Char+'!') :
+              (document.getElementById("cAge").value = cxYear2Char-comboYear2Char+'!');
+            ( comboYear2Char > thisYear2Char ) ?
+              (document.getElementById("oAge").value = thisYear2Char+100-comboYear2Char+'!') :
+              (document.getElementById("oAge").value = thisYear2Char-comboYear2Char+'!');
+            // unhide on input.
+            if ( recYear1String.length === 1 && recYear2String.length === 1 ) {
+              document.getElementById("disc").style = "display:",
+              document.getElementById("results").style = "display:"};
+          }
+        function loadFocus()
+          {
+            // focus on first input on load
+            document.getElementById("inYear1").focus();
+          }
+      </script>
+      <style>
+        /* style input forms */
+        input[type='text'] { font-size: 20px; font-family: Courier; color:black}
+      </style>
+    </head>
+    <body onload="loadFocus()">
+      <!-- full width div -->
+      <div name="all" style="width:100%">
+        <!-- centered narow divs -->
+        <div name="title" style="width:200px; word-wrap:break-word; margin: 0 auto;">
+          <i>
+            <font face="arial black" size="6" color="#EA0606">What's My </font>
+            <font face="arial black" size="6" color="#079FF9">Racing Age </font>
+            <font face="arial black" size="6" color="#EA0606">Again?</font>
+          </i>
+        </div>
+        <div name="belowTitle">
+          <font face="courier" font color="black" size="3">
+          <br/>
+          </font>
+        </div>
+        <div name="birthYear" style="width:200px; word-wrap:break-word; margin: 0 auto;">
+          <font face="courier" font color="black" size="3">
+          <form oninput="handleBirthYear()">
+            <fieldset style="border:">
+              <br/>
+              Birth year:<br/>
+              <br/>
+                <div style="float:left;">
+                  <font face="courier" font color="black" size="5">
+                    ʼ
+                  </font>
+                  <input type="text" id="inYear1" style="width:16px" maxlength="1" placeholder="Y" pattern="[0-9]*"/>
+                  <input type="text" id="inYear2" style="width:16px" maxlength="1" placeholder="Y" pattern="[0-9]*"/><br/>
+                  <br/>
+                </div>
+            </fieldset>
+          </form>
+          </font>
+        </div>
+        <div name="belowBirthYear">
+          <font face="courier" font color="black" size="3">
+            <br/>
+          </font>
+        </div>
+        <div name="bothAge" style="display:none" id="results">
+          <div name="cAge" style="width:200px; word-wrap:break-word; margin: 0 auto;">
+            <fieldset style="display:" id="resultC">
+              <font face="courier" font color="black" size="3">
+                <br/>
+                Racing age<br/>
+                <br/>
+              </font>
+              <font face="arial black" size="6" color="#EA0606">
+                <output id="cAge"/>
+              </font>
+              <font face="courier" font color="black" size="3">
+                <br/><br/>
+                in <output id="cxYearLabel1"></output>-<output id="cxYear2Char"/></output><br/>
+                <br/>
+              </font>
+            </fieldset>
+          </div>
+          <div name="oAge" style="width:200px; word-wrap:break-word; margin: 0 auto;">
+            <fieldset style="display:none" id="resultO">
+              <font face="courier" font color="black" size="3">
+                <br/>
+                Racing age<br/>
+                <br/>
+              </font>
+              <font face="arial black" size="6" color="#EA0606">
+                <output id="oAge"/>
+              </font>
+              <font face="courier" font color="black" size="3">
+                <br/><br/>
+                in <output id="thisYear"></output><br/>
+                <br/>
+              </font>
+            </fieldset>
+          </div>
+        </div>
+        <div name="belowAge">
+          <font face="courier" font color="black" size="3">
+            <br/>
+          </font>
+        </div>
+        <div name="picker" style="width:200px; word-wrap:break-word; margin: 0 auto;">
+          <font face="courier" font color="black" size="3">
+          <form oninput="handleBirthYear()">
+            <fieldset style="display:none" id="disc">
+                <div style="float:left;">
+                  <input type="radio" name="discipline" id="cx" value="cx" onclick="toggleC()" checked/> cx<br>
+                  <input type="radio" name="discipline" id="other" value="other" onclick="toggleO()"/> other
+                </div>
+              <br/>
+              <br/>
+            </fieldset>
+          </form>
+          </font>
+        </div>
+        <div name="belowPicker">
+          <font face="courier" font color="black" size="3">
+            <br/>
+          </font>
+        </div>
+        <div name="sillyOuter" style="width:200px; word-wrap:break-word; margin: 0 auto;">
+          <font face="courier" font color="black" size="2">
+            <fieldset style="border:0; display:none" id="sillyBox">
+                <div style="float:left;" id="sillyText">
+                  asdf
+                </div>
+              <br/>
+            </fieldset>
+          </font>
+        </div>
+      </div>
+      <audio autoplay loop>
+        <source src="wmraa.mp3" type="audio/mpeg">
+      </audio>
+      <script>
+        // after an input revert focus to the other input
+        document.getElementById("inYear1").onkeyup = function()
+          {
+            if (this.value.length === parseInt(this.attributes["maxlength"].value)) ( inYear2.focus() );
+          }
+        document.getElementById("inYear2").onkeyup = function()
+          {
+            if (this.value.length === parseInt(this.attributes["maxlength"].value)) ( inYear1.focus() );
+          }
+        // auto clear previous input before new input
+        document.getElementById("inYear1").onkeydown = function() { this.value='' }
+        document.getElementById("inYear2").onkeydown = function() { this.value='' }
+        // unhide selected result type and focus on first input
+        function toggleC()
+          {
+            document.getElementById("resultC").style = "";
+            document.getElementById("resultO").style = "display:none";
+            inYear1.focus();
+          }
+        function toggleO()
+          {
+            document.getElementById("resultC").style = "display:none";
+            document.getElementById("resultO").style = "";
+            inYear1.focus();
+          }
+        //silly
+        var lyrics =
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+          ];
+        function sillyLyrics()
+          {
+           document.getElementById("sillyText").innerHTML = arr[Math.floor(Math.random() * arr.length)];
+          }
+      </script>
+    </body>
+  </html>
